@@ -1,16 +1,10 @@
-from fastapi import FastAPI , HTTPException
+from fastapi import FastAPI 
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pickle
 import json
-import numpy as np
-from pyngrok import ngrok
-from fastapi.middleware.cors import CORSMiddleware
-import nest_asyncio
-import uvicorn
-
 
 app = FastAPI()
-
 
 origins =["*"]
 
@@ -46,16 +40,13 @@ def degree_pred(input_parameters : Student_Grade ):
     
     prediction = RFR_Model.predict([input_list])
    
-    predicted_grade = {"student_grade": round(prediction[0], 1)}  # تخمين قيمة الدرجة المتوقعة من القائمة وتقريبها لعددين عشريين
-    return predicted_grade
+    predicted_grade = {"student_grade": round(prediction[0], 1)}  
+    max_grade=100
+    predicted_percentage = round((predicted_grade["student_grade"] / max_grade) * 100, 1)
+    formatted_result = "Student_grade: {:.1f}%".format(predicted_percentage)
+    return formatted_result
     
  
-
-#مشكلة في التثبيت في ال command promt
-ngrok_tunnel= ngrok.connect(8000)
-print("Public URL :" ,ngrok_tunnel.public_url )
-nest_asyncio.apply()
-uvicorn.run(app, port=8000)
     
     
     
