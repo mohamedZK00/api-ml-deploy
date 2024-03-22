@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-pydantic
-pickle5
-scikit-learn 
-numpy
+pydantic==1.10.12
+pickle-mixin==1.0.2
+scikit-learn==1.2.2
+numpy==1.26.4
