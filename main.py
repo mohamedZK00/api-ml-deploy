@@ -24,7 +24,7 @@ class Student_Grade(BaseModel):
     grade_month_3: int
     
 # loading the saved model
-RFR_Model = pickle.load(open('GBRmodel87%.PLK' ,'rb'))
+RFR_Model = pickle.load(open('gbR94.sav' ,'rb'))
  
 @app.post('/grades_students')
 def degree_pred(input_parameters : Student_Grade ):
