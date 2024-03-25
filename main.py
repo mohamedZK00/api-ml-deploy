@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pickle
 import json
+import os
 
 app = FastAPI()
 
@@ -24,7 +25,13 @@ class Student_Grade(BaseModel):
     grade_month_3: int
     
 # loading the saved model
-RFR_Model = pickle.load(open('gbR94.sav' ,'rb'))
+#RFR_Model = pickle.load(open('gbR94.sav' ,'rb'))
+
+working_dir = os.path.dirname(os.path.realpath(__file__))
+model_path = os.path.join(working_dir ,'gbR94.sav')
+
+with open(model_path, 'rb')as f:
+  Model = pickle.load(f)
  
 @app.post('/grades_students')
 def degree_pred(input_parameters : Student_Grade ):
@@ -38,7 +45,7 @@ def degree_pred(input_parameters : Student_Grade ):
     
     input_list = [dgr_mo_1 , dgr_mo_2 , dgr_mo_3] 
     
-    prediction = RFR_Model.predict([input_list])
+    prediction = Model.predict([input_list])
    
     predicted_grade = {"student_grade": round(prediction[0], 1)}  
     max_grade=100
