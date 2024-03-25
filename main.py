@@ -28,7 +28,7 @@ class Student_Grade(BaseModel):
 #RFR_Model = pickle.load(open('gbR94.sav' ,'rb'))
 
 working_dir = os.path.dirname(os.path.realpath(__file__))
-model_path = os.path.join(working_dir ,'gbr91.sav')
+model_path = os.path.join(working_dir ,'gbR82.sav')
 
 with open(model_path, 'rb')as f:
   Model = pickle.load(f)
